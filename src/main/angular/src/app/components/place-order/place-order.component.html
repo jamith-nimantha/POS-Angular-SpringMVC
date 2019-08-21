@@ -1,0 +1,129 @@
+<div class="ui breadcrumb">
+  <div class="section">App</div>
+  <div class="divider"> /</div>
+  <div class="active section">Place Order</div>
+</div>
+
+
+<h3 class="ui header"></h3>
+
+
+<div class="ui grid">
+  <div class="sixteen column row">
+    <div class="sixteen wide column">
+      <div class="ui teal secondary segment">
+        <div class="ui form mini">
+          <div class="four fields">
+            <div class="field">
+              <label>Customer ID</label>
+              <select [(ngModel)]="selectedCustomer" class="ui search dropdown">
+                <option>Select Customer ID</option>
+                <option [ngValue]="cust" *ngFor="let cust of customers">{{cust.id}}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Customer Name</label>
+              <input [(ngModel)]="selectedCustomer.name" type="text" name="customerName" placeholder="Customer Name" readonly>
+            </div>
+            <div class="field">
+              <label>Order ID</label>
+              <input [(ngModel)]="orderId" type="text" name="orderID" placeholder="Order ID">
+            </div>
+            <div class="field">
+              <label>Order Date</label>
+              <input  [(ngModel)]="orderDate" type="date" name="orderDate" placeholder="OrderDate">
+            </div>
+          </div>
+          <div class="six fields">
+            <div class="field">
+              <label> Item Code </label>
+              <select [(ngModel)]="item" class="ui search dropdown">
+                <option>Select Item Code</option>
+                <option [ngValue]="item" *ngFor="let item of items">{{item.code}}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label> Item Name </label>
+              <input [(ngModel)]="item.name" name="name" placeholder="Item Name" style="font-weight: bold;" type="text" readonly>
+            </div>
+            <div class="field">
+              <label> Item Description </label>
+              <input [(ngModel)]="item.description" name="description" placeholder="Item Description" style="font-weight: bold;" type="text"
+                     readonly>
+            </div>
+            <div class="field">
+              <label> Item Unit Price </label>
+              <input [(ngModel)]="item.price" name="price" placeholder="Item Unit Price" style="font-weight: bold;" type="text" readonly>
+            </div>
+            <div class="field">
+              <label> Stock Quantity </label>
+              <input [(ngModel)]="item.qty" name="stock" placeholder="Stock Quantity" style="font-weight: bold;" type="text" readonly>
+            </div>
+            <div class="field">
+              <label> Order QTY </label>
+              <input [(ngModel)]="qty" name="qty" placeholder="Order Qty" style="font-weight: bold;" type="number">
+            </div>
+          </div>
+
+          <div class="sixteen wide column">
+            <div class="inline fields" style="margin-left: 93%">
+              <button (click)="onAdd()" class="ui mini shop icon primary button">
+                <i class="shop icon"></i>
+                <i class="add icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <table class="ui single line striped selectable unstackable table">
+            <thead>
+            <tr>
+              <th>Item Code</th>
+              <th>Item Name</th>
+              <th>Item Description</th>
+              <th>Unit Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th class="center aligned">#</th>
+              <th class="center aligned">#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let place of placeOrder">
+              <td>{{place.item.code}}</td>
+              <td>{{place.item.name}}</td>
+              <td>{{place.item.description}}</td>
+              <td>{{place.item.price.toFixed(2)}}</td>
+              <td>{{place.qty}}</td>
+              <td>{{place.total.toFixed(2)}}</td>
+              <td class="center aligned">
+                <button (click)="onOrderEdit(place)" class="ui blue circular compact edit icon button"><i class="edit icon"></i></button>
+              </td>
+              <td class="center aligned">
+                <button (click)="onOrderDelete(place)" class="ui red circular compact trash icon button"><i class="trash icon"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label style="width: 25%;">Sub Total</label>
+              <input [value]="subTotal.toFixed(2)" type="text" name="total" placeholder="Sub Total">
+            </div>
+          </div>
+
+          <div class="actions" style="margin-left: 80%">
+            <div class="negative ui cancel button" (click)="clearAll()">Clear</div>
+            <div class="ui positive button" (click)="onCheckout()">Checkout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
